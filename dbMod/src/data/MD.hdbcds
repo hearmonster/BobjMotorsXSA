@@ -1,0 +1,9 @@
+context MD {
+
+    /*@@layout{"layoutInfo":{"x":-329,"y":-228.5}}*/
+    entity CountryTEST {
+        key countryID    : Integer;      
+            countryDesc  : String(20);
+    };
+};
+

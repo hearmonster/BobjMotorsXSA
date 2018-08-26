@@ -1,0 +1,19 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.CountryTEST",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "01_country.csv",
+                "has_header": true
+            },
+           "import_settings": {
+                "import_columns": [
+                    "countryID", 
+                    "countryDesc"
+                ]
+            }
+        }
+    ]
+}
