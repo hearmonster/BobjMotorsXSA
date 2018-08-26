@@ -1,0 +1,19 @@
+ID: BobjMotorsXSA
+_schema-version: '2.0'
+version: 0.0.1
+
+modules:
+ - name: dbMod
+   type: hdb
+   path: dbMod
+   requires:
+    - name: hdi_dbMod
+
+resources:
+ - name: hdi_dbMod
+   parameters:
+      config:
+         schema: MOTORS
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container

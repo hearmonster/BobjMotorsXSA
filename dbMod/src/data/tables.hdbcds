@@ -1,0 +1,108 @@
+context tables {
+
+    /*@@layout{"layoutInfo":{"x":-329,"y":-228.5}}*/
+    entity Country {
+        key countryID    : Integer;
+            countryDesc  : String(20);
+    };
+
+    /*@@layout{"layoutInfo":{"x":-512,"y":-86.5}}*/
+    entity Variety {
+        key varietyID   : Integer;
+            varietyDesc : String(20);
+    };
+
+    /*@@layout{"layoutInfo":{"x":-216,"y":-73.5}}*/
+    entity Product {
+        key productID    : Integer;
+            productDesc  : String(15);
+            productPrice : Decimal(10, 2);
+            varietyFK    : Integer;
+            countryFK    : Integer;
+            variety      : association[0..1] to tables.Variety;
+            country      : association[0..1] to tables.Country;
+    };
+
+    /*@@layout{"layoutInfo":{"x":-817,"y":-228.5}}*/
+    entity Region {
+        key regionID      : Integer;
+            regionDesc    : String(30);
+            countryFK     : Integer;
+            association_1 : association[0..1] to tables.Country;
+    };
+
+    /*@@layout{"layoutInfo":{"x":22,"y":53.5}}*/
+    entity PriceRange {
+        key priceMin  : Decimal(10, 2);
+        key priceMax  : Decimal(10, 2);
+            rangeDesc : String(10);
+            product   : association[0..1] to tables.Product;
+    };
+
+    /*@@layout{"layoutInfo":{"x":-851,"y":-68.5}}*/
+    entity Customer {
+        key custID     : Integer;
+            lastName   : String(20);
+            firstName  : String(10);
+            address    : String(40);
+            city       : String(15);
+            state      : String(2);
+            zipCode    : String(6);
+            phoneNo    : String(18);
+            regionFK   : Integer;
+            salesmanFK : Integer;
+            region     : association[0..1] to tables.Region;
+    };
+
+    /*@@layout{"layoutInfo":{"x":330,"y":106.5}}*/
+    entity Color {
+        key colorID   : Integer;
+            colorDesc : String(10);
+    };
+
+    /*@@layout{"layoutInfo":{"x":-319,"y":209.5}}*/
+    entity Sale {
+        key orderID      : Integer;
+            custFK       : Integer;
+            orderDate    : LocalDate;
+            customerSale : association[0..1] to tables.Customer;
+    };
+
+    /*@@layout{"layoutInfo":{"x":-16,"y":203.5}}*/
+    entity SaleLine {
+        key orderFK   : Integer;
+        key productFK : Integer;
+            quantity  : Integer;
+            colorFK   : Integer;
+            sale      : association[0..1] to tables.Sale;
+            color     : association[0..1] to tables.Color;
+            product   : association[0..1] to tables.Product;
+    };
+
+    /*@@layout{"layoutInfo":{"x":-270,"y":399.5}}*/
+    entity Loan {
+        key loanID   : Integer;
+            custFK       : Integer;
+            loanDate     : LocalDate;
+            customerLoan : association[0..1] to tables.Customer;
+    };
+
+    /*@@layout{"layoutInfo":{"x":7,"y":407.5}}*/
+    entity LoanLine {
+        key loanFK     : Integer;
+        key productFK : Integer;
+            quantity   : Integer;
+            colorFK    : Integer;
+            LoanHeader : association[0..1] to tables.Loan;
+            Product    : association[0..1] to tables.Product;
+            Color      : association[0..1] to tables.Color;
+    };
+
+    /*@@layout{"layoutInfo":{"x":300,"y":-109.5}}*/
+    entity ProductColor {
+        key productFK : Integer;
+        key colorFK   : Integer;
+            color     : association[0..1] to tables.Color;
+            product   : association[0..1] to tables.Product;
+    };
+};
