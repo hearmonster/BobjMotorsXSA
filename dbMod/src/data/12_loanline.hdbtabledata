@@ -1,0 +1,27 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "FACTS.LoanLine",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "12_loanline.csv",
+                 "has_header": true
+            },
+            "column_mappings" : {
+                "toLoan.loanID"       : 1,
+                "toColor.colorID"     : 2,
+                "toProduct.productID" : 3,
+                "quantity"            : 4
+            }, 
+            "import_settings": {
+                "import_columns": [
+                    "toLoan.loanID",
+                    "toColor.colorID",
+                    "toProduct.productID",
+                    "quantity"
+                ]
+            }
+        }
+    ]
+}

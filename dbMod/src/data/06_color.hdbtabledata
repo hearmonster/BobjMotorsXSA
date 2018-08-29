@@ -1,0 +1,23 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.Color",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "06_color.csv",
+                 "has_header": true
+            },
+            "column_mappings" : {
+                 "colorID"          : 1,
+                 "colorDesc"        : 2
+            }, 
+            "import_settings": {
+                "import_columns": [
+                    "colorID",
+                    "colorDesc"
+                ]
+            }
+        }
+    ]
+}

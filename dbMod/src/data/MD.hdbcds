@@ -1,9 +1,103 @@
 context MD {
 
-    /*@@layout{"layoutInfo":{"x":-329,"y":-228.5}}*/
+    /*@@layout{"layoutInfo":{"x":-657,"y":-277.5}}*/
     entity Country {
-        key countryID    : Integer;      
-            countryDesc  : String(20);
+        key countryID   : Integer;
+            countryDesc : String(20);
     };
+
+    /*@@layout{"layoutInfo":{"x":-406,"y":-193}}*/
+    entity Region {
+        key regionID   : Integer;
+            regionDesc : String(30);
+            ToCountry  : association[1] to Country;
+    };
+
+    /*@@layout{"layoutInfo":{"x":16,"y":-322}}*/
+    entity Salesperson {
+        key salespersonID : Integer;
+            firstName     : String(20);
+            surname       : String(20);
+            title         : String(40);
+            addressStreet : String(40);
+            addressCity   : String(20);
+            addressState  : String(20);
+            addressZip    : String(20);
+            PhoneNo       : String(20);
+            hierarchy     : Integer;
+    };
+
+    /*@@layout{"layoutInfo":{"x":-265,"y":-44.5}}*/
+    entity Customer {
+        key customerID     : Integer;
+            lastName       : String(20);
+            firstName      : String(20);
+            addressStreet  : String(40);
+            addressCity    : String(20);
+            addressState   : String(2);
+            addressZipcode : String(5);
+            phoneNo        : String(15);
+            ssn            : String(15);
+            toRegion       : association[0..1] to MD.Region;
+            toSalesperson  : association[0..1] to MD.Salesperson;
+    };
+
+    entity Variety {
+        key varietyID   : Integer;
+            varietyDesc : String(20);
+    };
+
+    entity Color {
+        key colorID   : Integer;
+            colorDesc : String(10);
+    };
+    
+    entity Product {
+        key productID    : Integer;
+            productDesc  : String(15);
+            productPrice : Decimal(10, 2);
+            toVariety      : association[0..1] to MD.Variety;
+            toCountry      : association[0..1] to MD.Country;
+    };
+
+    entity PriceRange {
+        key priceMin       : Decimal(10, 2);
+        key priceMax       : Decimal(10, 2);
+            priceRangeDesc : String(10);
+    };
+
 };
 
+
+
+context FACTS {
+
+    /*@@layout{"layoutInfo":{"x":-319,"y":209.5}}*/
+    entity Sale {
+        key orderID        : Integer;
+            toCustomerSale : association[0..1] to MD.Customer;
+            orderDate      : LocalDate;
+    };
+
+    /*@@layout{"layoutInfo":{"x":-16,"y":203.5}}*/
+    entity SaleLine {
+        key toSale    : association[0..1] to FACTS.Sale;
+        key toColor   : association[0..1] to MD.Color;
+        key toProduct : association[0..1] to MD.Product;
+            quantity  : Integer;
+    };
+	
+    entity Loan {
+        key loanID         : Integer;
+            toCustomerLoan : association[0..1] to MD.Customer;
+            loanDateSTRING : String(11);
+    };
+
+    entity LoanLine {
+        key toLoan    : association[0..1] to FACTS.Loan;
+        key toColor   : association[0..1] to MD.Color;
+        key toProduct : association[0..1] to MD.Product;
+            quantity  : Integer;
+    };
+	
+};

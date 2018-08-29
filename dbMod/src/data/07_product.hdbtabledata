@@ -1,0 +1,29 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.Product",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "07_product.csv",
+                 "has_header": true
+            },
+            "column_mappings" : {
+                 "productID"           : 1,
+                 "productDesc"         : 2,
+                 "productPrice"        : 3,
+                 "toVariety.varietyID" : 4,
+                 "toCountry.countryID" : 5
+            }, 
+            "import_settings": {
+                "import_columns": [
+                 "productID",
+                 "productDesc",
+                 "productPrice",
+                 "toVariety.varietyID",
+                 "toCountry.countryID"
+                ]
+            }
+        }
+    ]
+}

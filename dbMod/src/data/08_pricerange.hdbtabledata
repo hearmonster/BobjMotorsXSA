@@ -1,0 +1,25 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.PriceRange",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "08_pricerange.csv",
+                 "has_header": true
+            },
+            "column_mappings" : {
+                 "priceMin"       : 1,
+                 "priceMax"       : 2,
+                 "priceRangeDesc" : 3
+            }, 
+            "import_settings": {
+                "import_columns": [
+                 "priceMin",
+                 "priceMax",
+                 "priceRangeDesc"
+                ]
+            }
+        }
+    ]
+}

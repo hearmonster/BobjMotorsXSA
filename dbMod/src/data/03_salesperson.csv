@@ -1,0 +1,13 @@
+salespersonID,firstName,surname,title,addressStreet,addressCity,addressState,addressZip,PhoneNo,hierarchy
+10,Lizbeth,Kohl,"Vice President, Sales","35433 Blake St #588",Gardena,CA,90248,310-699-1222,-1
+11,Erick,Nievas,"Sales, Central","45 E Acacia Ct",Chicago,IL,60624,773-704-9903,15
+12,Gayla,Schnitzler,"Sales Director, West","38 Pleasant Hill Rd",Hayward,CA,94545,510-686-3407,10
+14,Earleen,Mai,"Sales, Central","75684 S Withlapopka Dr #32",Dallas,TX,75227,214-289-1973,15
+15,Serina,Zagen,"Sales Director, Central & South","7 S Beverly Dr","Fort Wayne",IN,46802,260-273-3725,10
+16,Sheron,Louissant,"Sales Director, Northeast","97 E 3rd St #9","Long Island City",NY,11101,718-976-8610,10
+17,Jina,Briddick,"Sales, Northeast","38938 Park Blvd",Boston,MA,2128,617-399-5124,16
+18,Lashon,Vizarro,"Sales, West","433 Westminster Blvd #590",Roseville,CA,95661,916-741-7884,12
+19,Alaine,Bergesen,"Sales, Northeast","7667 S Hulen St #42",Yonkers,NY,10701,914-300-9193,16
+21,Chaya,Malvin,"Sales, Central","560 Civic Center Dr","Ann Arbor",MI,48103,734-928-5182,15
+22,Peggie,Sturiale,"Sales, West","9 N 14th St","El Cajon",CA,92020,619-608-1763,12
+23,Chuck,Auffrey,"Sales, South","23 Palo Alto Sq",Miami,FL,33134,305-604-8981,15

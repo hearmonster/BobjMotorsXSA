@@ -1,0 +1,25 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "FACTS.Sale",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "09_sale.csv",
+                 "has_header": true
+            },
+            "column_mappings" : {
+                 "orderID"                   : 1,
+                 "toCustomerSale.customerID" : 2,
+                 "orderDate"                 : 3
+            }, 
+            "import_settings": {
+                "import_columns": [
+                 "orderID",
+                 "toCustomerSale.customerID",
+                 "orderDate"
+                ]
+            }
+        }
+    ]
+}

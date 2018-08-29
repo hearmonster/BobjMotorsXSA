@@ -1,0 +1,41 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.Customer",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "04_customer.csv",
+                 "has_header": true
+            },
+            "column_mappings" : {
+                 "customerID"          : 1,
+                 "lastName"            : 2,
+                 "firstName"           : 3,
+                 "addressStreet"       : 4,
+                 "addressCity"         : 5,
+                 "addressState"        : 6,
+                 "addressZipcode"      : 7,
+                 "phoneNo"             : 8,
+                 "ssn"                 : 9,
+                 "toRegion.regionID"           : 10, 
+                 "toSalesperson.salespersonID" : 11
+            }, 
+            "import_settings": {
+                "import_columns": [
+                    "customerID",
+                    "lastName",
+                    "firstName",
+                    "addressStreet",
+                    "addressCity",
+                    "addressState",
+                    "addressZipcode",
+                    "phoneNo",
+                    "ssn",
+                    "toRegion.regionID",
+                    "toSalesperson.salespersonID"
+                ]
+            }
+        }
+    ]
+}

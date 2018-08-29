@@ -1,0 +1,26 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "FACTS.Loan",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "11_loan.csv",
+                 "has_header": true,
+                                                  "quote_character" : "'"
+            },
+            "column_mappings" : {
+                 "loanID"                    : 1,
+                 "toCustomerLoan.customerID" : 2,
+                                                   "loanDateSTRING" : 3
+            }, 
+            "import_settings": {
+                "import_columns": [
+                 "loanID",
+                 "toCustomerLoan.customerID",
+                                                  "loanDateSTRING"
+                ]
+            }
+        }
+    ]
+}

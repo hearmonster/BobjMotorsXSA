@@ -1,0 +1,20 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.Region",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "02_region.csv",
+                "has_header": true
+            },
+           "import_settings": {
+                "import_columns": [
+                    "regionID", 
+                    "regionDesc",
+                    "ToCountry.countryID"
+                ]
+            }
+        }
+    ]
+}

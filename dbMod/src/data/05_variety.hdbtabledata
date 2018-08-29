@@ -1,0 +1,23 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.Variety",
+            "source_data": {
+                 "data_type" : "CSV",
+                 "file_name" : "05_variety.csv",
+                 "has_header": true
+            },
+            "column_mappings" : {
+                 "varietyID"          : 1,
+                 "varietyDesc"        : 2
+            }, 
+            "import_settings": {
+                "import_columns": [
+                    "varietyID",
+                    "varietyDesc"
+                ]
+            }
+        }
+    ]
+}

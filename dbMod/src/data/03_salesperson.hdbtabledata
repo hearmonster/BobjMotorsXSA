@@ -1,0 +1,27 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MD.Salesperson",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "03_salesperson.csv",
+                "has_header": true
+            },
+           "import_settings": {
+                "import_columns": [
+                    "salespersonID",
+                    "firstName",
+                    "surname",
+                    "title",
+                    "addressStreet",
+                    "addressCity",
+                    "addressState",
+                    "addressZip",
+                    "PhoneNo",
+                    "hierarchy"
+                ]
+            }
+        }
+    ]
+}
