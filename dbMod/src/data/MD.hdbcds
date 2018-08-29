@@ -1,7 +1,7 @@
 context MD {
 
     /*@@layout{"layoutInfo":{"x":-329,"y":-228.5}}*/
-    entity CountryTEST {
+    entity Country {
         key countryID    : Integer;      
             countryDesc  : String(20);
     };
