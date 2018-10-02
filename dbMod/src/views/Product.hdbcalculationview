@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Product" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Product"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="MD.Product">
+    <resourceUri>MD.Product</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="MD.Product">
+  <attributes>
+    <attribute id="productID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="productID"/>
+      <keyMapping columnObjectName="MD.Product" columnName="productID"/>
+    </attribute>
+    <attribute id="productDesc" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="productDesc"/>
+      <keyMapping columnObjectName="MD.Product" columnName="productDesc"/>
+    </attribute>
+    <attribute id="productPrice" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="productPrice"/>
+      <keyMapping columnObjectName="MD.Product" columnName="productPrice"/>
+    </attribute>
+    <attribute id="toVariety_varietyID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="toVariety_varietyID"/>
+      <keyMapping columnObjectName="MD.Product" columnName="toVariety.varietyID"/>
+    </attribute>
+    <attribute id="toCountry_countryID" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="toCountry_countryID"/>
+      <keyMapping columnObjectName="MD.Product" columnName="toCountry.countryID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

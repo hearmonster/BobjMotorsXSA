@@ -63,7 +63,7 @@
       <descriptions defaultDescription="toColor_colorID"/>
       <keyMapping columnObjectName="OrdersFacts" columnName="toColor_colorID"/>
     </attribute>
-    <attribute id="toProduct_productID" order="4" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="toProduct_productID$local">
       <descriptions defaultDescription="toProduct_productID"/>
       <keyMapping columnObjectName="OrdersFacts" columnName="toProduct_productID"/>
     </attribute>
@@ -74,16 +74,33 @@
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
-    <measure id="quantity" order="5" aggregationType="sum" measureType="simple">
+    <measure id="quantity" order="4" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="quantity"/>
       <measureMapping columnObjectName="OrdersFacts" columnName="quantity"/>
     </measure>
   </baseMeasures>
   <calculatedMeasures>
-    <measure id="COUNT_CUST" order="6" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" aggregatable="true" datatype="INTEGER" length="">
+    <measure id="COUNT_CUST" order="5" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" aggregatable="true" datatype="INTEGER" length="">
       <descriptions defaultDescription="COUNT_CUST"/>
       <exceptionAggregation>
         <attribute attributeName="customerID" dimensionUri="CustGeog"/>
+      </exceptionAggregation>
+      <formula>1</formula>
+    
+      </measure>
+  
+    <measure id="COUNT_PROD" order="6" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" aggregatable="true" datatype="INTEGER" length="">
+      <descriptions defaultDescription="COUNT_PROD"/>
+      <exceptionAggregation>
+        <attribute attributeName="productID" dimensionUri="Product"/>
+      </exceptionAggregation>
+      <formula>1</formula>
+      </measure>
+  
+    <measure id="COUNT_ORDERS" order="7" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" aggregatable="true" datatype="INTEGER" length="">
+      <descriptions defaultDescription="COUNT_ORDERS"/>
+      <exceptionAggregation>
+        <attribute attributeName="orderID"/>
       </exceptionAggregation>
       <formula>1</formula>
     </measure>
@@ -97,6 +114,16 @@
       </attributes>
       <associatedAttributeNames>
         <attributeName>customerID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="referential" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="Product">
+      <attributes>
+        <attributeRef>toProduct_productID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>productID</attributeName>
       </associatedAttributeNames>
       <properties cardinality="CN_1" joinType="referential" joinOperator="Equal"/>
       <associatedAttributeFeatures/>
@@ -126,9 +153,13 @@
       <rectangleSize width="250"/>
     </shape>
     <shape modelObjectName="CustGeog" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
-      <upperLeftCorner x="320" y="30"/>
+      <upperLeftCorner x="468" y="14"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Product" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="145" y="243"/>
       <rectangleSize width="250"/>
     </shape>
   </shapes>
 </layout>
-</Calculation:scenario>
+</Calculation:scenario> 
