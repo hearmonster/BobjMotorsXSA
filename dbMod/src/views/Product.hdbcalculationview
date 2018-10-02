@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Product" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Product" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
 <descriptions defaultDescription="Product"/>
 <localVariables/>
 <variableMappings/>
@@ -7,29 +7,120 @@
   <DataSource id="MD.Product">
     <resourceUri>MD.Product</resourceUri>
   </DataSource>
+  <DataSource id="MD.Variety">
+    <resourceUri>MD.Variety</resourceUri>
+  </DataSource>
+  <DataSource id="MD.Country">
+    <resourceUri>MD.Country</resourceUri>
+  </DataSource>
 </dataSources>
-<calculationViews/>
-<logicalModel id="MD.Product">
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Products_1" cardinality="CN_1" joinType="inner" multiJoinNode="Products" multiJoinCentralTable="MD.Country" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="varietyID">
+        <descriptions defaultDescription="varietyID"/>
+      </viewAttribute>
+      <viewAttribute id="varietyDesc">
+        <descriptions defaultDescription="varietyDesc"/>
+      </viewAttribute>
+      <viewAttribute id="productID">
+        <descriptions defaultDescription="productID"/>
+      </viewAttribute>
+      <viewAttribute id="productDesc">
+        <descriptions defaultDescription="productDesc"/>
+      </viewAttribute>
+      <viewAttribute id="productPrice">
+        <descriptions defaultDescription="productPrice"/>
+      </viewAttribute>
+      <viewAttribute id="toCountry.countryID"/>
+      <viewAttribute hidden="true" id="JOIN$toVariety.varietyID$varietyID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="MD.Product">
+      <mapping xsi:type="Calculation:AttributeMapping" target="productID" source="productID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="productDesc" source="productDesc"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="productPrice" source="productPrice"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="toCountry.countryID" source="toCountry.countryID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$toVariety.varietyID$varietyID" source="toVariety.varietyID"/>
+    </input>
+    <input node="MD.Variety">
+      <mapping xsi:type="Calculation:AttributeMapping" target="varietyID" source="varietyID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="varietyDesc" source="varietyDesc"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$toVariety.varietyID$varietyID" source="varietyID"/>
+    </input>
+    <joinAttribute name="JOIN$toVariety.varietyID$varietyID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Products_2" cardinality="C1_N" joinType="inner" multiJoinNode="Products" multiJoinCentralTable="MD.Country" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="countryID">
+        <descriptions defaultDescription="countryID"/>
+      </viewAttribute>
+      <viewAttribute id="countryDesc">
+        <descriptions defaultDescription="countryDesc"/>
+      </viewAttribute>
+      <viewAttribute id="varietyID">
+        <descriptions defaultDescription="varietyID"/>
+      </viewAttribute>
+      <viewAttribute id="varietyDesc">
+        <descriptions defaultDescription="varietyDesc"/>
+      </viewAttribute>
+      <viewAttribute id="productID">
+        <descriptions defaultDescription="productID"/>
+      </viewAttribute>
+      <viewAttribute id="productDesc">
+        <descriptions defaultDescription="productDesc"/>
+      </viewAttribute>
+      <viewAttribute id="productPrice">
+        <descriptions defaultDescription="productPrice"/>
+      </viewAttribute>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="MD.Country">
+      <mapping xsi:type="Calculation:AttributeMapping" target="countryID" source="countryID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="countryDesc" source="countryDesc"/>
+    </input>
+    <input node="Products_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="varietyID" source="varietyID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="varietyDesc" source="varietyDesc"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="productID" source="productID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="productDesc" source="productDesc"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="productPrice" source="productPrice"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="countryID" source="toCountry.countryID"/>
+    </input>
+    <joinAttribute name="countryID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Products_2">
   <attributes>
-    <attribute id="productID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="ProdCountryID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ProdCountryID"/>
+      <keyMapping columnObjectName="Products_2" columnName="countryID"/>
+    </attribute>
+    <attribute id="ProdCountryName" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ProdCountryDesc"/>
+      <keyMapping columnObjectName="Products_2" columnName="countryDesc"/>
+    </attribute>
+    <attribute id="ProdVarietyID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ProdVarietyID"/>
+      <keyMapping columnObjectName="Products_2" columnName="varietyID"/>
+    </attribute>
+    <attribute id="ProdVarietyName" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ProdVarietyDesc"/>
+      <keyMapping columnObjectName="Products_2" columnName="varietyDesc"/>
+    </attribute>
+    <attribute id="productID" order="5" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="productID"/>
-      <keyMapping columnObjectName="MD.Product" columnName="productID"/>
+      <keyMapping columnObjectName="Products_2" columnName="productID"/>
     </attribute>
-    <attribute id="productDesc" order="2" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="productName" order="6" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="productDesc"/>
-      <keyMapping columnObjectName="MD.Product" columnName="productDesc"/>
+      <keyMapping columnObjectName="Products_2" columnName="productDesc"/>
     </attribute>
-    <attribute id="productPrice" order="3" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="productPrice" order="7" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="productPrice"/>
-      <keyMapping columnObjectName="MD.Product" columnName="productPrice"/>
-    </attribute>
-    <attribute id="toVariety_varietyID" order="4" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="toVariety_varietyID"/>
-      <keyMapping columnObjectName="MD.Product" columnName="toVariety.varietyID"/>
-    </attribute>
-    <attribute id="toCountry_countryID" order="5" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="toCountry_countryID"/>
-      <keyMapping columnObjectName="MD.Product" columnName="toCountry.countryID"/>
+      <keyMapping columnObjectName="Products_2" columnName="productPrice"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
@@ -41,6 +132,23 @@
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
       <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Products" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="60" y="257"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="MD.Country" modelObjectNameSpace="Products" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Products">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="MD.Product" modelObjectNameSpace="Products" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Products">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="MD.Variety" modelObjectNameSpace="Products" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Products">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="250"/>
     </shape>
   </shapes>
 </layout>
