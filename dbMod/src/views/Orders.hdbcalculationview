@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Orders" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Orders"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="FACTS.Sale">
+    <resourceUri>FACTS.Sale</resourceUri>
+  </DataSource>
+  <DataSource id="FACTS.SaleLine">
+    <resourceUri>FACTS.SaleLine</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="OrdersFacts" cardinality="C1_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="orderID" aggregationType="sum">
+        <descriptions defaultDescription="orderID"/>
+      </viewAttribute>
+      <viewAttribute id="toCustomerSale_customerID" aggregationType="sum">
+        <descriptions defaultDescription="toCustomerSale_customerID"/>
+      </viewAttribute>
+      <viewAttribute id="orderDate">
+        <descriptions defaultDescription="orderDate"/>
+      </viewAttribute>
+      <viewAttribute id="toColor_colorID" aggregationType="sum">
+        <descriptions defaultDescription="toColor_colorID"/>
+      </viewAttribute>
+      <viewAttribute id="toProduct_productID" aggregationType="sum">
+        <descriptions defaultDescription="toProduct_productID"/>
+      </viewAttribute>
+      <viewAttribute id="quantity" aggregationType="sum">
+        <descriptions defaultDescription="quantity"/>
+      </viewAttribute>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="FACTS.Sale">
+      <mapping xsi:type="Calculation:AttributeMapping" target="orderID" source="orderID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="toCustomerSale_customerID" source="toCustomerSale.customerID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="orderDate" source="orderDate"/>
+    </input>
+    <input node="FACTS.SaleLine">
+      <mapping xsi:type="Calculation:AttributeMapping" target="toColor_colorID" source="toColor.colorID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="toProduct_productID" source="toProduct.productID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="quantity"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="orderID" source="toSale.orderID"/>
+    </input>
+    <joinAttribute name="orderID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="OrdersFacts">
+  <attributes>
+    <attribute id="orderID" order="1" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="orderID"/>
+      <keyMapping columnObjectName="OrdersFacts" columnName="orderID"/>
+    </attribute>
+    <attribute id="orderDate" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="orderDate"/>
+      <keyMapping columnObjectName="OrdersFacts" columnName="orderDate"/>
+    </attribute>
+    <attribute id="toColor_colorID" order="3" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="toColor_colorID"/>
+      <keyMapping columnObjectName="OrdersFacts" columnName="toColor_colorID"/>
+    </attribute>
+    <attribute id="toProduct_productID" order="4" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="toProduct_productID"/>
+      <keyMapping columnObjectName="OrdersFacts" columnName="toProduct_productID"/>
+    </attribute>
+    <attribute id="toCustomerSale_customerID$local">
+      <descriptions defaultDescription="toCustomerSale_customerID"/>
+      <keyMapping columnObjectName="OrdersFacts" columnName="toCustomerSale_customerID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="quantity" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="quantity"/>
+      <measureMapping columnObjectName="OrdersFacts" columnName="quantity"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures>
+    <measure id="COUNT_CUST" order="6" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" aggregatable="true" datatype="INTEGER" length="">
+      <descriptions defaultDescription="COUNT_CUST"/>
+      <exceptionAggregation>
+        <attribute attributeName="customerID" dimensionUri="CustGeog"/>
+      </exceptionAggregation>
+      <formula>1</formula>
+    </measure>
+  </calculatedMeasures>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="CustGeog">
+      <attributes>
+        <attributeRef>toCustomerSale_customerID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>customerID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="referential" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="OrdersFacts" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="53" y="223"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="FACTS.Sale" modelObjectNameSpace="OrdersFacts" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="FACTS.SaleLine" modelObjectNameSpace="OrdersFacts" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="OrdersFacts" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="CustGeog" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

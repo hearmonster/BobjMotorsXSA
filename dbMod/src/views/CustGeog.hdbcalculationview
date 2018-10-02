@@ -148,7 +148,7 @@
 </calculationViews>
 <logicalModel id="Join_1_2">
   <attributes>
-    <attribute id="countryDesc" order="1" descriptionColumnName="customerID" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="countryDesc" order="1" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Cust Country"/>
       <keyMapping columnObjectName="Join_1_2" columnName="countryDesc"/>
     </attribute>
