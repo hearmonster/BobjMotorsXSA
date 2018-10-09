@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CustGeog" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="CustGeog" enforceSqlExecution="false" cacheInvalidationPeriod="NONE" outputViewType="Projection" schemaVersion="3.0" dimensionType="STANDARD" dataCategory="DIMENSION" applyPrivilegeType="NONE">
 <descriptions defaultDescription="CustGeog"/>
 <localVariables/>
 <variableMappings/>
 <dataSources>
-  <DataSource id="MD.Region">
-    <resourceUri>MD.Region</resourceUri>
-  </DataSource>
   <DataSource id="MD.Customer">
     <resourceUri>MD.Customer</resourceUri>
+  </DataSource>
+  <DataSource id="MD.Region">
+    <resourceUri>MD.Region</resourceUri>
   </DataSource>
   <DataSource id="MD.Country">
     <resourceUri>MD.Country</resourceUri>
   </DataSource>
 </dataSources>
 <calculationViews>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="C1_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="MD.Country" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:ProjectionView" id="customer_PJ">
     <viewAttributes>
-      <viewAttribute id="regionDesc">
-        <descriptions defaultDescription="regionDesc"/>
-      </viewAttribute>
       <viewAttribute id="customerID">
         <descriptions defaultDescription="customerID"/>
       </viewAttribute>
-      <viewAttribute id="lastName">
-        <descriptions defaultDescription="lastName"/>
+      <viewAttribute id="ssn">
+        <descriptions defaultDescription="ssn"/>
+      </viewAttribute>
+      <viewAttribute id="phoneNo">
+        <descriptions defaultDescription="phoneNo"/>
+      </viewAttribute>
+      <viewAttribute id="toSalesperson_salespersonID">
+        <descriptions defaultDescription="toSalesperson_salespersonID"/>
+      </viewAttribute>
+    
+      <viewAttribute id="toRegion_regionID">
+        <descriptions defaultDescription="toRegion_regionID"/>
       </viewAttribute>
       <viewAttribute id="firstName">
         <descriptions defaultDescription="firstName"/>
+      </viewAttribute>
+      <viewAttribute id="lastName">
+        <descriptions defaultDescription="lastName"/>
       </viewAttribute>
       <viewAttribute id="addressStreet">
         <descriptions defaultDescription="addressStreet"/>
@@ -41,85 +51,103 @@
       <viewAttribute id="addressZipcode">
         <descriptions defaultDescription="addressZipcode"/>
       </viewAttribute>
-      <viewAttribute id="phoneNo">
-        <descriptions defaultDescription="phoneNo"/>
-      </viewAttribute>
-      <viewAttribute id="ssn">
-        <descriptions defaultDescription="ssn"/>
-      </viewAttribute>
-      <viewAttribute id="toSalesperson_salespersonID">
-        <descriptions defaultDescription="toSalesperson_salespersonID"/>
-      </viewAttribute>
-      <viewAttribute id="regionID">
-        <descriptions defaultDescription="regionID"/>
-      </viewAttribute>
-      <viewAttribute id="ToCountry.countryID"/>
     </viewAttributes>
-    <calculatedViewAttributes/>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="CustomerName" datatype="VARCHAR" length="50" expressionLanguage="SQL">
+        <formula>&quot;firstName&quot;||' '||&quot;lastName&quot;</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CustomerAddress" datatype="VARCHAR" length="50" expressionLanguage="SQL">
+        <formula>&quot;addressStreet&quot;||', '||&quot;addressCity&quot;||', '||&quot;addressState&quot;||' '||&quot;addressZipcode&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
     <restrictedViewAttributes/>
-    <input node="MD.Region">
-      <mapping xsi:type="Calculation:AttributeMapping" target="regionDesc" source="regionDesc"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="regionID" source="regionID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="ToCountry.countryID" source="ToCountry.countryID"/>
-    </input>
     <input node="MD.Customer">
       <mapping xsi:type="Calculation:AttributeMapping" target="customerID" source="customerID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="lastName" source="lastName"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ssn" source="ssn"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="phoneNo" source="phoneNo"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="toSalesperson_salespersonID" source="toSalesperson.salespersonID"/>
+    
+      <mapping xsi:type="Calculation:AttributeMapping" target="toRegion_regionID" source="toRegion.regionID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="firstName" source="firstName"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="lastName" source="lastName"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="addressStreet" source="addressStreet"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="addressCity" source="addressCity"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="addressState" source="addressState"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="addressZipcode" source="addressZipcode"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="phoneNo" source="phoneNo"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="ssn" source="ssn"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="toSalesperson_salespersonID" source="toSalesperson.salespersonID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="regionID" source="toRegion.regionID"/>
     </input>
-    <joinAttribute name="regionID"/>
   </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="C1_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="MD.Country" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:JoinView" id="CustGeog_JN_1" cardinality="C1_N" joinType="inner" multiJoinNode="CustGeog_JN" multiJoinCentralTable="MD.Country" multiJoinOrder="Outside In">
     <viewAttributes>
-      <viewAttribute id="countryDesc">
-        <descriptions defaultDescription="countryDesc"/>
-      </viewAttribute>
       <viewAttribute id="regionDesc">
         <descriptions defaultDescription="regionDesc"/>
       </viewAttribute>
-      <viewAttribute id="customerID">
-        <descriptions defaultDescription="customerID"/>
+      <viewAttribute id="regionID">
+        <descriptions defaultDescription="regionID"/>
       </viewAttribute>
-      <viewAttribute id="lastName">
-        <descriptions defaultDescription="lastName"/>
+      <viewAttribute id="CustomerName">
+        <descriptions defaultDescription="CustomerName"/>
       </viewAttribute>
-      <viewAttribute id="firstName">
-        <descriptions defaultDescription="firstName"/>
-      </viewAttribute>
-      <viewAttribute id="addressStreet">
-        <descriptions defaultDescription="addressStreet"/>
-      </viewAttribute>
-      <viewAttribute id="addressCity">
-        <descriptions defaultDescription="addressCity"/>
-      </viewAttribute>
-      <viewAttribute id="addressState">
-        <descriptions defaultDescription="addressState"/>
-      </viewAttribute>
-      <viewAttribute id="addressZipcode">
-        <descriptions defaultDescription="addressZipcode"/>
-      </viewAttribute>
-      <viewAttribute id="phoneNo">
-        <descriptions defaultDescription="phoneNo"/>
+      <viewAttribute id="CustomerAddress">
+        <descriptions defaultDescription="CustomerAddress"/>
       </viewAttribute>
       <viewAttribute id="ssn">
         <descriptions defaultDescription="ssn"/>
       </viewAttribute>
-      <viewAttribute id="toSalesperson_salespersonID">
-        <descriptions defaultDescription="toSalesperson_salespersonID"/>
+      <viewAttribute id="phoneNo">
+        <descriptions defaultDescription="phoneNo"/>
+      </viewAttribute>
+      <viewAttribute id="customerID">
+        <descriptions defaultDescription="customerID"/>
+      </viewAttribute>
+      <viewAttribute id="ToCountry.countryID"/>
+      <viewAttribute hidden="true" id="JOIN$toRegion_regionID$regionID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="customer_PJ">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CustomerName" source="CustomerName"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CustomerAddress" source="CustomerAddress"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ssn" source="ssn"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="phoneNo" source="phoneNo"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="customerID" source="customerID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$toRegion_regionID$regionID" source="toRegion_regionID"/>
+    </input>
+    <input node="MD.Region">
+      <mapping xsi:type="Calculation:AttributeMapping" target="regionDesc" source="regionDesc"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="regionID" source="regionID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ToCountry.countryID" source="ToCountry.countryID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$toRegion_regionID$regionID" source="regionID"/>
+    </input>
+    <joinAttribute name="JOIN$toRegion_regionID$regionID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="CustGeog_JN_2" cardinality="C1_N" joinType="inner" multiJoinNode="CustGeog_JN" multiJoinCentralTable="MD.Country" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="countryDesc">
+        <descriptions defaultDescription="countryDesc"/>
       </viewAttribute>
       <viewAttribute id="countryID">
         <descriptions defaultDescription="countryID"/>
       </viewAttribute>
+      <viewAttribute id="regionDesc">
+        <descriptions defaultDescription="regionDesc"/>
+      </viewAttribute>
       <viewAttribute id="regionID">
         <descriptions defaultDescription="regionID"/>
+      </viewAttribute>
+      <viewAttribute id="CustomerName">
+        <descriptions defaultDescription="CustomerName"/>
+      </viewAttribute>
+      <viewAttribute id="CustomerAddress">
+        <descriptions defaultDescription="CustomerAddress"/>
+      </viewAttribute>
+      <viewAttribute id="ssn">
+        <descriptions defaultDescription="ssn"/>
+      </viewAttribute>
+      <viewAttribute id="phoneNo">
+        <descriptions defaultDescription="phoneNo"/>
+      </viewAttribute>
+      <viewAttribute id="customerID">
+        <descriptions defaultDescription="customerID"/>
       </viewAttribute>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -128,81 +156,65 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="countryDesc" source="countryDesc"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="countryID" source="countryID"/>
     </input>
-    <input node="Join_1_1">
+    <input node="CustGeog_JN_1">
       <mapping xsi:type="Calculation:AttributeMapping" target="regionDesc" source="regionDesc"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="customerID" source="customerID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="lastName" source="lastName"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="firstName" source="firstName"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="addressStreet" source="addressStreet"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="addressCity" source="addressCity"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="addressState" source="addressState"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="addressZipcode" source="addressZipcode"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="phoneNo" source="phoneNo"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="ssn" source="ssn"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="toSalesperson_salespersonID" source="toSalesperson_salespersonID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="regionID" source="regionID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CustomerName" source="CustomerName"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CustomerAddress" source="CustomerAddress"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ssn" source="ssn"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="phoneNo" source="phoneNo"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="customerID" source="customerID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="countryID" source="ToCountry.countryID"/>
     </input>
     <joinAttribute name="countryID"/>
   </calculationView>
 </calculationViews>
-<logicalModel id="Join_1_2">
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="CustomerGeographyH" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="CustomerGeographyH"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <levels>
+    <level levelAttribute="countryID" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="countryID" sortDirection="ASC"/>
+    <level levelAttribute="regionID" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionID" sortDirection="ASC"/>
+    <level levelAttribute="customerID" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="customerID" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+<logicalModel id="CustGeog_JN_2">
   <attributes>
-    <attribute id="countryDesc" order="1" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Cust Country"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="countryDesc"/>
+    <attribute id="countryDesc" order="1" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
+      <descriptions defaultDescription="countryDesc"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="countryDesc"/>
     </attribute>
-    <attribute id="regionDesc" order="2" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Cust Region"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="regionDesc"/>
-    </attribute>
-    <attribute id="customerID" order="3" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="customerID"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="customerID"/>
-    </attribute>
-    <attribute id="lastName" order="4" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="lastName"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="lastName"/>
-    </attribute>
-    <attribute id="firstName" order="5" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="firstName"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="firstName"/>
-    </attribute>
-    <attribute id="addressStreet" order="6" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="addressStreet"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="addressStreet"/>
-    </attribute>
-    <attribute id="addressCity" order="7" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="addressCity"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="addressCity"/>
-    </attribute>
-    <attribute id="addressState" order="8" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="addressState"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="addressState"/>
-    </attribute>
-    <attribute id="addressZipcode" order="9" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="addressZipcode"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="addressZipcode"/>
-    </attribute>
-    <attribute id="phoneNo" order="10" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="phoneNo"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="phoneNo"/>
-    </attribute>
-    <attribute id="ssn" order="11" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="ssn"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="ssn"/>
-    </attribute>
-    <attribute id="toSalesperson_salespersonID" order="12" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="toSalesperson_salespersonID"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="toSalesperson_salespersonID"/>
-    </attribute>
-    <attribute id="countryID" order="13" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="countryID" order="2" descriptionColumnName="countryDesc" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="countryID"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="countryID"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="countryID"/>
     </attribute>
-    <attribute id="regionID" order="14" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="regionDesc" order="3" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
+      <descriptions defaultDescription="regionDesc"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="regionDesc"/>
+    </attribute>
+    <attribute id="regionID" order="4" descriptionColumnName="regionDesc" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="regionID"/>
-      <keyMapping columnObjectName="Join_1_2" columnName="regionID"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="regionID"/>
+    </attribute>
+    <attribute id="CustomerName" order="5" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
+      <descriptions defaultDescription="CustomerName"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="CustomerName"/>
+    </attribute>
+    <attribute id="CustomerAddress" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CustomerAddress"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="CustomerAddress"/>
+    </attribute>
+    <attribute id="ssn" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ssn"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="ssn"/>
+    </attribute>
+    <attribute id="phoneNo" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="phoneNo"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="phoneNo"/>
+    </attribute>
+    <attribute id="customerID" order="9" descriptionColumnName="CustomerName" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="customerID"/>
+      <keyMapping columnObjectName="CustGeog_JN_2" columnName="customerID"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
@@ -212,24 +224,29 @@
 </logicalModel>
 <layout>
   <shapes>
-    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="40" y="85"/>
+    <shape expanded="true" modelObjectNameSpace="MeasureGroup" modelObjectName="Output">
+      <upperLeftCorner y="85" x="40"/>
     </shape>
-  
-    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="12" y="229"/>
+    <shape expanded="true" modelObjectName="customer_PJ" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="56" y="333"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-    <shape modelObjectName="MD.Country" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="1135" y="-42"/>
+  
+  
+    <shape expanded="true" modelObjectNameSpace="CalculationView" modelObjectName="CustGeog_JN">
+      <upperLeftCorner y="195" x="20"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="MD.Country" modelObjectNameSpace="CustGeog_JN" modelObjectType="JoinNodeInput" multiJoinViewNodeName="CustGeog_JN">
+      <upperLeftCorner x="54" y="234"/>
       <rectangleSize width="250"/>
     </shape>
-    <shape modelObjectName="MD.Region" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="1545" y="-30"/>
+    <shape modelObjectName="customer_PJ" modelObjectNameSpace="CustGeog_JN" modelObjectType="JoinNodeInput" multiJoinViewNodeName="CustGeog_JN">
+      <upperLeftCorner x="646" y="11"/>
       <rectangleSize width="250"/>
     </shape>
-    <shape modelObjectName="MD.Customer" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="1903" y="19"/>
+    <shape modelObjectName="MD.Region" modelObjectNameSpace="CustGeog_JN" modelObjectType="JoinNodeInput" multiJoinViewNodeName="CustGeog_JN">
+      <upperLeftCorner x="345" y="88"/>
       <rectangleSize width="250"/>
     </shape>
   </shapes>
