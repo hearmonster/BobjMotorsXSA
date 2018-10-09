@@ -234,7 +234,7 @@
   
   
     <shape expanded="true" modelObjectNameSpace="CalculationView" modelObjectName="CustGeog_JN">
-      <upperLeftCorner y="195" x="20"/>
+      <upperLeftCorner y="205" x="20"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="MD.Country" modelObjectNameSpace="CustGeog_JN" modelObjectType="JoinNodeInput" multiJoinViewNodeName="CustGeog_JN">
